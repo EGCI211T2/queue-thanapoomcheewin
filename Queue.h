@@ -1,4 +1,3 @@
-
 #ifndef queue_h
 #define queue_h
 #include "Node.h"
@@ -14,35 +13,58 @@ public:
 
 
 void Queue::enqueue(int x){
-  NodePtr new_node= new NODE(x);
-if(new_node){ 
-    /* Add head and tail for me please */
-   1. connect & Change tail
-  2. (may be) change head  when the queue is empty
-  3. increase size */
-	
- }
-}
+  NodePtr new_node = new NODE(x);
 
-int Queue::dequeue(){
-  if(size>0){
-    
-     /* Add head and tail for me please */
-          
-    
+  if(new_node != NULL){ 
+    if(tailPtr != NULL)
+        tailPtr->set_next(new_node);
+
+  
+    tailPtr = new_node;
+
+  
+    if(size == 0)
+        headPtr = new_node;
+
+   
+    size++;
   }
+}
+int Queue::dequeue(){
+  if(size > 0){
+    
+    NodePtr temp = headPtr;
+    int value = temp->get_value();
+
+    headPtr = headPtr->get_next();
+
+    delete temp;
+
+    size--;
+
+    if(size == 0)
+        tailPtr = NULL;
+
+    return value;
+  }
+
   cout<<"Empty queue";
   return -1;
 }
 
 
 Queue::Queue(){
-    //initialize Queue
     
+    headPtr = NULL;
+    tailPtr = NULL;
+    size = 0;
 }
 Queue::~Queue(){
       
-    //delete all remaning Queue (i.e. DQ all) 
+    
+    while(size > 0){
+        dequeue();
+    }
     
 }
 
