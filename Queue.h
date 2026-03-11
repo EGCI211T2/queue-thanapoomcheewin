@@ -48,10 +48,9 @@ int Queue::dequeue(){
     return value;
   }
 
-  cout<<"Empty queue";
+  cout<<"Empty Queue";
   return -1;
 }
-
 
 Queue::Queue(){
     
