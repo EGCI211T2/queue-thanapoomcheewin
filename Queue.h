@@ -8,16 +8,15 @@ class Queue {
     int size;
 
 public:
-    void enqueue(int price, int cash);
-    NodePtr dequeue();
+    void enqueue(int);
+    int dequeue();
 
     Queue();
     ~Queue();
 };
 
-// Enqueue
-void Queue::enqueue(int price, int cash){
-    NodePtr new_node = new NODE(price, cash);
+void Queue::enqueue(int x){
+    NodePtr new_node = new NODE(x);
 
     if(tailPtr != NULL)
         tailPtr->set_next(new_node);
@@ -30,35 +29,34 @@ void Queue::enqueue(int price, int cash){
     size++;
 }
 
-// Dequeue
-NodePtr Queue::dequeue(){
+int Queue::dequeue(){
     if(size > 0){
         NodePtr temp = headPtr;
+        int value = temp->get_value();
+
         headPtr = headPtr->get_next();
 
+        delete temp;
         size--;
 
         if(size == 0)
             tailPtr = NULL;
 
-        return temp;
+        return value;
     }
 
-    return NULL;
+    return -1;
 }
 
-// Constructor
 Queue::Queue(){
     headPtr = NULL;
     tailPtr = NULL;
     size = 0;
 }
 
-// Destructor
 Queue::~Queue(){
     while(size > 0){
-        NodePtr temp = dequeue();
-        delete temp;
+        dequeue();
     }
 }
 

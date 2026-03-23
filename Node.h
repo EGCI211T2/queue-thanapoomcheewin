@@ -3,53 +3,38 @@
 #include <iostream>
 using namespace std;
 
-class NODE {
-    int price;
-    int cash;
+class NODE{
+    int data;
     NODE *nextPtr;
 
 public:
-    NODE(int p, int c);
+    NODE(int x);
     ~NODE();
 
     void set_next(NODE*);
     NODE* get_next();
-
-    int get_price();
-    int get_cash();
+    int get_value();
 };
 
 typedef NODE* NodePtr;
 
-// Constructor
-NODE::NODE(int p, int c){
-    price = p;
-    cash = c;
+NODE::NODE(int x){
+    data = x;
     nextPtr = NULL;
 }
 
-// Get next node
 NODE* NODE::get_next(){
     return nextPtr;
 }
 
-// Set next node
 void NODE::set_next(NODE *t){
     nextPtr = t;
 }
 
-// Get values
-int NODE::get_price(){
-    return price;
+int NODE::get_value(){
+    return data;
 }
 
-int NODE::get_cash(){
-    return cash;
-}
-
-// Destructor (optional debug)
-NODE::~NODE(){
-    // cout << "Deleting node\n";
-}
+NODE::~NODE(){}
 
 #endif
