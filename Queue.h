@@ -1,71 +1,65 @@
 #ifndef queue_h
 #define queue_h
+
 #include "Node.h"
+
 class Queue {
-	NodePtr headPtr,tailPtr;
-	int size;
+    NodePtr headPtr, tailPtr;
+    int size;
+
 public:
-    void enqueue(int);
-    int dequeue();
+    void enqueue(int price, int cash);
+    NodePtr dequeue();
+
     Queue();
     ~Queue();
 };
 
+// Enqueue
+void Queue::enqueue(int price, int cash){
+    NodePtr new_node = new NODE(price, cash);
 
-void Queue::enqueue(int x){
-  NodePtr new_node = new NODE(x);
-
-  if(new_node != NULL){ 
     if(tailPtr != NULL)
         tailPtr->set_next(new_node);
 
-  
     tailPtr = new_node;
 
-  
     if(size == 0)
         headPtr = new_node;
 
-   
     size++;
-  }
-}
-int Queue::dequeue(){
-  if(size > 0){
-    
-    NodePtr temp = headPtr;
-    int value = temp->get_value();
-
-    headPtr = headPtr->get_next();
-
-    delete temp;
-
-    size--;
-
-    if(size == 0)
-        tailPtr = NULL;
-
-    return value;
-  }
-
-  cout<<"Empty Queue";
-  return -1;
 }
 
+// Dequeue
+NodePtr Queue::dequeue(){
+    if(size > 0){
+        NodePtr temp = headPtr;
+        headPtr = headPtr->get_next();
+
+        size--;
+
+        if(size == 0)
+            tailPtr = NULL;
+
+        return temp;
+    }
+
+    return NULL;
+}
+
+// Constructor
 Queue::Queue(){
-    
     headPtr = NULL;
     tailPtr = NULL;
     size = 0;
 }
-Queue::~Queue(){
-      
-    
-    while(size > 0){
-        dequeue();
-    }
-    
-}
 
+// Destructor
+Queue::~Queue(){
+    while(size > 0){
+        NodePtr temp = dequeue();
+        delete temp;
+    }
+}
 
 #endif
